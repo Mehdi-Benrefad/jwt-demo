@@ -3,29 +3,35 @@ package com.example.demo.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.example.demo.service.CustomUserDetailService;
+import com.example.demo.filters.JWTAthentificationFilter;
+import com.example.demo.service.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
 public class JwtConfig extends WebSecurityConfigurerAdapter{
 	
+	@Autowired
+	private BCryptPasswordEncoder bycript;
+	
 	 @Autowired
-	 private CustomUserDetailService customUserDetailService;
+	 private UserDetailsServiceImpl customUserDetailService;
 	 
 	//here we say how we want to manage our authentication process
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		// TODO Auto-generated method stub
 		//super.configure(auth);
-		 auth.userDetailsService(customUserDetailService);
+		 auth.userDetailsService(customUserDetailService).passwordEncoder(bycript);
 		
 	}
 	
@@ -35,6 +41,7 @@ public class JwtConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		// TODO Auto-generated method stub
 		//super.configure(http);
+		/*
 		http
 	        .csrf()
 	        .disable()
@@ -45,7 +52,13 @@ public class JwtConfig extends WebSecurityConfigurerAdapter{
 	        .anyRequest().authenticated()//for any other request, authentication should performed
 	        .and()
 	        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);//every request should be independent of other and server does not have to manage session
-
+		 */
+		http.csrf().disable();
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		http.authorizeRequests()
+        .antMatchers("/login").permitAll();
+		http.authorizeRequests().anyRequest().authenticated();
+		http.addFilter(new JWTAthentificationFilter(authenticationManager()));
 	}
 	
 	@Bean
@@ -53,4 +66,9 @@ public class JwtConfig extends WebSecurityConfigurerAdapter{
         return NoOpPasswordEncoder.getInstance();
     }
 
+
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 }

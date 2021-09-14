@@ -15,10 +15,10 @@ import java.util.function.Function;
 //method to generate JWT token
 //method to validate JWT token
 //method to check expiry of JWT token
-@Component
+
 public class JwtUtil {
 
-    @Value("${jwt.secret}")
+   
     private String SECRET_KEY;
 
     public String extractUsername(String token) {
