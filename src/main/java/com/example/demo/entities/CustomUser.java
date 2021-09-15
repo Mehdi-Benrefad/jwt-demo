@@ -1,4 +1,4 @@
-package com.example.demo.filters;
+package com.example.demo.entities;
 
 import java.util.ArrayList;
 import java.util.Collection;

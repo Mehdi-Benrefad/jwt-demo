@@ -9,8 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.example.demo.filters.AppRole;
-import com.example.demo.filters.CustomUser;
+import com.example.demo.entities.AppRole;
+import com.example.demo.entities.CustomUser;
 import com.example.demo.service.IAccountService;
 
 @SpringBootApplication

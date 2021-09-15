@@ -1,5 +1,6 @@
 package com.example.demo.filters;
 
+import com.example.demo.entities.CustomUser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

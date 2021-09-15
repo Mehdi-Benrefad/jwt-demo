@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.filters.CustomUser;
+import com.example.demo.entities.CustomUser;
 
 import java.util.ArrayList;
 import java.util.Collection;

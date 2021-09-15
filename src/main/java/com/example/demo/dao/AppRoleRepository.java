@@ -3,7 +3,7 @@ package com.example.demo.dao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.filters.AppRole;
+import com.example.demo.entities.AppRole;
 
 @Repository
 public interface AppRoleRepository extends JpaRepository<AppRole, Integer>{

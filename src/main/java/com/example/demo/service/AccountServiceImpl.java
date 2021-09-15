@@ -6,9 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.dao.AppRoleRepository;
 import com.example.demo.dao.CustumizedUserDao;
-import com.example.demo.filters.AppRole;
-import com.example.demo.filters.CustomUser;
-//import com.example.demo.filters.CustomUser;
+import com.example.demo.entities.AppRole;
+import com.example.demo.entities.CustomUser;
 
 @Service
 @Transactional
