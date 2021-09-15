@@ -12,8 +12,10 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.example.demo.filters.JWTAthentificationFilter;
+import com.example.demo.filters.JWTAuthorizationFilter;
 import com.example.demo.service.UserDetailsServiceImpl;
 
 @Configuration
@@ -59,6 +61,7 @@ public class JwtConfig extends WebSecurityConfigurerAdapter{
         .antMatchers("/login").permitAll();
 		http.authorizeRequests().anyRequest().authenticated();
 		http.addFilter(new JWTAthentificationFilter(authenticationManager()));
+		http.addFilterBefore(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
 	
 	@Bean
@@ -71,4 +74,18 @@ public class JwtConfig extends WebSecurityConfigurerAdapter{
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+    
+    
+    /*
+             http.authorizeRequests().antMatchers("/SearchGestionnaires","/UpdateGest/**","/AddGest","/ModifyDir/**").hasAuthority("ADMIN");
+     
+     */
+    
+    //*********************************************************************************************************************************************
+    
+    /*
+     
+        http.authorizeRequests().antMatchers("/Examinators")
+                .access("hasAuthority('ADMIN') or hasAuthority('GESTLV1') or hasAuthority('GESTLV2')");
+    */
 }
